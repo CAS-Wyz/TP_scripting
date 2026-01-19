@@ -1,15 +1,13 @@
 #!/bin/bash
 
 # --- CONFIGURATION AVEC CHEMIN ABSOLU ---
-# Note l'utilisation des guillemets à cause de l'espace dans "Cours B2"
+
 BASE_DIR="/home/edouard/Documents/Cours B2/Scripting/TP"
 
 ENV_A="$BASE_DIR/env_A"
 ENV_B="$BASE_DIR/env_B"
 LOG_FILE="$BASE_DIR/sync_report.log"
 PROTECTED_FILE="protected_files.txt"
-
-# ... le reste du script ne change pas ...
 
 # Initialisation du log
 echo "--------------------------------------------------------" >> "$LOG_FILE"
@@ -34,13 +32,13 @@ log_decision() {
 }
 
 # Fonction pour extraire la version du fichier .meta
-# Utilise awk pour chercher la ligne "version :" et prendre le 2ème champ
+
 get_version() {
     local meta_path="$1"
     if [ ! -f "$meta_path" ]; then
         echo "MISSING"
     else
-        # On cherche la ligne "version : X", on prend X, on nettoie les espaces
+
         local val=$(grep "^version" "$meta_path" | awk -F ':' '{print $2}' | tr -d '[:space:]')
         if [[ -z "$val" ]]; then
             echo "INVALID"
@@ -66,12 +64,11 @@ is_protected() {
 }
 
 # --- 1. CONSTITUTION DE LA LISTE DES FICHIERS ---
-# On liste A et B, on trie, et on garde les noms uniques
-# On exclut les fichiers .meta, le fichier protected et les dossiers
+
 files_list=$(cat <(ls "$ENV_A") <(ls "$ENV_B") | sort | uniq | grep -v ".meta$" | grep -v "^$PROTECTED_FILE$")
 
 # --- 2. BOUCLE PRINCIPALE ---
-IFS=$'\n' # Pour gérer les espaces dans les noms de fichiers au cas où
+IFS=$'\n'
 for file in $files_list; do
     
     path_a="$ENV_A/$file"
@@ -84,7 +81,7 @@ for file in $files_list; do
     [ -f "$path_a" ] && exists_in_a=true
     [ -f "$path_b" ] && exists_in_b=true
 
-    # --- CAS 1 : Présent uniquement dans A ---
+    # --- CAS 1 : ---
     if $exists_in_a && ! $exists_in_b; then
         if is_protected "$ENV_B" "$file"; then
             log_decision "$file" "IGNORÉ" "Fichier listé dans protected_files de B"
@@ -97,7 +94,7 @@ for file in $files_list; do
         continue
     fi
 
-    # --- CAS 2 : Présent uniquement dans B ---
+    # --- CAS 2 : ---
     if ! $exists_in_a && $exists_in_b; then
         if is_protected "$ENV_A" "$file"; then
             log_decision "$file" "IGNORÉ" "Fichier listé dans protected_files de A"
@@ -109,13 +106,13 @@ for file in $files_list; do
         continue
     fi
 
-    # --- CAS 3 : Présent des deux côtés (Comparaison META) ---
+    # --- CAS 3 : ---
     if $exists_in_a && $exists_in_b; then
         
         ver_a=$(get_version "$meta_a")
         ver_b=$(get_version "$meta_b")
 
-        # Gestion des erreurs de métadonnées (Règle : "Si absents ou incomplets -> Conflit")
+        # Gestion des erreurs de métadonnées
         if [[ "$ver_a" == "MISSING" ]] || [[ "$ver_b" == "MISSING" ]] || \
            [[ "$ver_a" == "INVALID" ]] || [[ "$ver_b" == "INVALID" ]]; then
             log_decision "$file" "CONFLIT" "Fichier .meta manquant ou version illisible"
