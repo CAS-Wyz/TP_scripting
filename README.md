@@ -1,3 +1,6 @@
+Teddy Barraud & Edouard Courault en classe de B2
+
+
 # TP Scripting - Cas 5 : Synchronisation sélective
 
 ## 📝 Contexte
