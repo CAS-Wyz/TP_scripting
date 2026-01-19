@@ -1,10 +1,15 @@
 #!/bin/bash
 
-# --- CONFIGURATION ---
-ENV_A="./env_A"
-ENV_B="./env_B"
-LOG_FILE="./sync_report.log"
+# --- CONFIGURATION AVEC CHEMIN ABSOLU ---
+# Note l'utilisation des guillemets à cause de l'espace dans "Cours B2"
+BASE_DIR="/home/edouard/Documents/Cours B2/Scripting/TP"
+
+ENV_A="$BASE_DIR/env_A"
+ENV_B="$BASE_DIR/env_B"
+LOG_FILE="$BASE_DIR/sync_report.log"
 PROTECTED_FILE="protected_files.txt"
+
+# ... le reste du script ne change pas ...
 
 # Initialisation du log
 echo "--------------------------------------------------------" >> "$LOG_FILE"
