@@ -1,0 +1,23 @@
+Contenu de A
+Contenu de AA
+Contenu de AAA
+Contenu de A
+Contenu de AA
+Contenu de AAA
+
+Contenu de A
+Contenu de AA
+Contenu de AAA
+
+=========================================================================================================
+--- SESSION : 01/20/2026 13:36:07 ---
+[2026-01-20 13:36:07] FICHIER                                  | STATUT                    | JUSTIFICATION
+[2026-01-20 13:36:07] nouveau_A.txt                            | IGNORE                    | Versions et contenus identiques
+[2026-01-20 13:36:07] nouveau_B.txt                            | COPIE A -> B              | Mise a jour vers v3
+[2026-01-20 13:36:07] rapport.txt                              | IGNORE                    | Versions et contenus identiques
+[2026-01-20 13:36:07] systeme.conf                             | IGNORE                    | Versions et contenus identiques
+RESUME | Copies: 1 | Conflits: 0 | Proteges: 0 | Ignores: 3
+
+
+Version suivante
+
