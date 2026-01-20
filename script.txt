@@ -86,7 +86,6 @@ for file in $files_list; do
             log_decision "$file" "IGNORÉ" "Fichier listé dans protected_files de B"
         else
             cp "$path_a" "$path_b" 2>/dev/null
-            # On essaie aussi de copier le meta s'il existe (bonnes pratiques, bien que non spécifié explicitement)
             [ -f "$meta_a" ] && cp "$meta_a" "$meta_b" 2>/dev/null 
             log_decision "$file" "COPIÉ A->B" "Nouveau fichier (Source A)"
         fi
