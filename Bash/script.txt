@@ -2,7 +2,7 @@
 
 # --- CONFIGURATION ---
 
-BASE_DIR="/home/edouard/Documents/Cours B2/Scripting/TP"
+BASE_DIR="/home/edouard/Documents/Cours B2/Scripting/TP/Bash"
 
 ENV_A="$BASE_DIR/env_A"
 ENV_B="$BASE_DIR/env_B"
